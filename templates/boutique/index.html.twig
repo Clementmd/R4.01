@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Rayons{% endblock %}
+
+{% block body %}
+    <div class="card col-md-12">
+        <div class="card-header">
+            {# Lien de retour vers l'accueil #}
+            <a class="btn-back text-secondary" href="{{ path('app_default_index') }}">
+                <i class="fas fa-2x fa-arrow-circle-left"></i>
+            </a>
+            <h3>
+                <i class="fas fa-store"></i>
+                Boutique
+                <span class="badge badge-pill badge-info">{{categories|length }}</span>
+                rayon(s) proposé(s)
+            </h3>
+        </div>
+
+        <div class="card-body row">
+            {% for uneCategorie in categories %}
+                <div class="col-md-3">
+                    {# On utilise le nom de la route définit dans le contrôleur (app_boutique_rayon) #}
+                    <div class="card clickable" onclick="location = '{{ path('app_boutique_rayon', {'idCategorie': uneCategorie.id}) }}'">
+                        {# Génération dynamique du chemin de l'image #}
+                        <img src="/images/categories/{{ uneCategorie.visuel }}" class="card-img-top" alt="{{ uneCategorie.libelle }}">
+
+                        <div class="card-body">
+                            <h4 class="card-title">{{ uneCategorie.libelle }}</h4>
+                            <p class="card-text">
+                                <i>{{ uneCategorie.texte }}</i>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-md-12">
+                    <p class="alert alert-warning">Aucun rayon n'est disponible pour le moment.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

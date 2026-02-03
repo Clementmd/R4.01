@@ -40,14 +40,13 @@ class DefaultController extends AbstractController
         //  qui contient juste un petit texte.
         return new Response("Hello World !");
     }
-
     #[Route(
-        path: '/contact', // L'URL auquel répondra cette action sera donc /contact
+        path: '/contact',
         name: 'app_default_contact',
     )]
-    // TODO : route et contrôleur de la page de contact
-     public function contact(): Response
-     {
-        return $this->render('default/contact.html.twig', []);
-     }
+    public function contact(): Response
+    {
+        // On rend le template situé dans templates/default/contact.html.twig
+        return $this->render('default/contact.html.twig');
+    }
 }
