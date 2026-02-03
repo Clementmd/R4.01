@@ -1,0 +1,237 @@
+{% extends 'base.html.twig' %}
+
+{# TODO #}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Démo SF">
+    <meta name="author" content="UGA/IUT2/INFO">
+    <link rel="icon" href="/info/R401/images/favicon.ico">
+    <title>
+        Garder le contact		</title>
+    <!-- CSS : Bootstrap, Fontawsome, projet (styles communs à tout le projet) -->
+    <link href="/info/R401/css/bootstrap-4/bootstrap.min.css" rel="stylesheet">
+    <link href="/info/R401/css/fontawsome-5.all.min.css" rel="stylesheet">
+    <link
+        href="/info/R401/css/projet.css" rel="stylesheet">
+    <!-- debut du block css -->
+    <!-- fin du block css -->
+</head>
+<body>
+<!-- debut de la navbar -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="/info/R401/">
+        <i class="fas fa-home"></i>
+        Accueil Boutique	</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/info/R401/fr/boutique/">
+                    <i class="fas fa-store"></i>
+                    Boutique				</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/info/R401/fr/contact">
+                    <i class="fas fa-comments"></i>
+                    Contact				</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/info/R401/fr/panier/">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class='badge badge-pill badge-danger'>0</span>
+                    Produit(s)				</a>
+            </li>
+            <ul class="navbar-nav my-0">
+                <li class="nav-item dropdown">
+					<span class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fas fa-user"></i>
+													Usager											</span>
+                    <div class="dropdown-menu" aria-labelledby="dropdown02" style="min-width: 5rem;">
+                        <a class="dropdown-item " href="/info/R401/fr/usager/">
+                            Connexion						</a>
+                        <a class="dropdown-item " href="/info/R401/fr/usager/inscription">
+                            Inscription						</a>
+                        <a class="dropdown-item disabled" href="/info/R401/fr/usager/">
+                            Mon Compte						</a>
+                        <a class="dropdown-item disabled" href="/info/R401/fr/usager/commandes">
+                            Mes Commandes						</a>
+                        <a class="dropdown-item disabled" href="/info/R401/fr/logout">
+                            Déconnexion						</a>
+                    </div>
+                </li>
+            </ul>
+        </ul>
+        <!-- Début champ de recherche -->
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" id="searchString" type="text" placeholder="chercher produit(s)..." aria-label="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" id="searchButton">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+        <!-- Fin champ de recherche -->
+        <!-- Début menu des monnaies -->
+        <ul class="navbar-nav my-0">
+            <li class="nav-item dropdown">
+				<span class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					EUR
+				</span>
+                <div class="dropdown-menu" aria-labelledby="dropdown02" style="min-width: 5rem;">
+                    <a class="dropdown-item" href="/info/R401/fr/boutique/changerMonnaie/GBP/app_default_contact/%7B%22_locale%22:%22fr%22%7D">
+                        GBP
+                    </a>
+                    <a class="dropdown-item" href="/info/R401/fr/boutique/changerMonnaie/USD/app_default_contact/%7B%22_locale%22:%22fr%22%7D">
+                        USD
+                    </a>
+                    <a class="dropdown-item" href="/info/R401/fr/boutique/changerMonnaie/CAD/app_default_contact/%7B%22_locale%22:%22fr%22%7D">
+                        CAD
+                    </a>
+                    <a class="dropdown-item" href="/info/R401/fr/boutique/changerMonnaie/XOF/app_default_contact/%7B%22_locale%22:%22fr%22%7D">
+                        XOF
+                    </a>
+                    <a class="dropdown-item" href="/info/R401/fr/boutique/changerMonnaie/PHP/app_default_contact/%7B%22_locale%22:%22fr%22%7D">
+                        PHP
+                    </a>
+                    <a class="dropdown-item" href="/info/R401/fr/boutique/changerMonnaie/IDR/app_default_contact/%7B%22_locale%22:%22fr%22%7D">
+                        IDR
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <!-- Fin menu des monnaies -->
+        <!-- Début menu des langues -->
+        <ul class="navbar-nav my-0">
+            <li class="nav-item dropdown">
+				<span class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<img src="/info/R401/images/locale/fr.png" alt="Fr">
+				</span>
+                <div class="dropdown-menu" aria-labelledby="dropdown01" style="min-width: 5rem;">
+                    <a class="dropdown-item" href="/info/R401/en/contact">
+                        <img src="/info/R401/images/locale/en.png" alt="en">
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <!-- Fin Menu des langues -->
+    </div>
+</nav>
+<!-- fin de la navbar -->
+<main role="main" class="container-fluid">
+    <div class="row">
+        <div class="col-md-10">
+            <div
+                class="main-div">
+                <!-- debut du block body -->
+                <div class="card col-md-6 offset-3">
+                    <div class="card-header">
+                        <a class="btn-back text-secondary" href="/info/R401/">
+                            <i class="fas fa-2x fa-arrow-circle-left"></i>
+                        </a>
+                        <h3>
+                            <i class="fas fa-comments"></i>
+                            Garder le contact			</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="card clickable" onclick="window.open('https://iut2.univ-grenoble-alpes.fr/l-iut2/qui-sommes-nous-/les-departements-de-l-iut2/informatique-info--149104.kjsp','_blank')">
+                            <img src="/info/R401/images/iut2_info.png" class="card-img" alt="logo IUT2">
+                            <div class="card-body">
+                                <h1 class="card-title">
+                                    <i class="fas fa-code"></i>
+                                    BUT INFO Semestre 4</h1>
+                                <h2 class="card-title">
+                                    <i class="fab fa-symfony"></i>
+                                    Module R4.01</h2>
+                                <p>
+                                    <i class="far fa-copyright"></i>
+                                    Ph. Martin, 2022/24</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- fin du block body -->
+            </div>
+        </div>
+        <!-- Debut de la sidebar "plus vendus" -->
+        <div class="col-md-2" style="padding: 10px;">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h5>
+                        <i class="fas fa-star"></i>
+                        Top Ventes								<i class="fas fa-star"></i>
+                    </h5>
+                </div>
+                <div class="card-body text-muted text-center">
+                    <ul class="list-group">
+                        <a href="/info/R401/fr/boutique/rayon/1">
+                            <li class="list-group-item text-center clickable top-produit">
+                                <img src="/info/R401/images/produits/pommes.jpg" style="height: 40px;"/>
+                                <p class="top-produit">Pomme<br><i>10
+                                        vente(s)</i>
+                                </p>
+                            </li>
+                        </a>
+                        <a href="/info/R401/fr/boutique/rayon/2">
+                            <li class="list-group-item text-center clickable top-produit">
+                                <img src="/info/R401/images/produits/romanesco.jpg" style="height: 40px;"/>
+                                <p class="top-produit">Chou Romanesco<br><i>5
+                                        vente(s)</i>
+                                </p>
+                            </li>
+                        </a>
+                        <a href="/info/R401/fr/boutique/rayon/3">
+                            <li class="list-group-item text-center clickable top-produit">
+                                <img src="/info/R401/images/produits/pizza.jpg" style="height: 40px;"/>
+                                <p class="top-produit">Pizza<br><i>2
+                                        vente(s)</i>
+                                </p>
+                            </li>
+                        </a>
+                        <a href="/info/R401/fr/boutique/rayon/4">
+                            <li class="list-group-item text-center clickable top-produit">
+                                <img src="/info/R401/images/produits/gel.jpg" style="height: 40px;"/>
+                                <p class="top-produit">Gel Hydroalcoolique<br><i>1
+                                        vente(s)</i>
+                                </p>
+                            </li>
+                        </a>
+                        <a href="/info/R401/fr/boutique/rayon/4">
+                            <li class="list-group-item text-center clickable top-produit">
+                                <img src="/info/R401/images/produits/masque.jpg" style="height: 40px;"/>
+                                <p class="top-produit">Masque FFP 200<br><i>1
+                                        vente(s)</i>
+                                </p>
+                            </li>
+                        </a>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        <!-- Fin de la sidebar "plus vendus" -->
+    </div>
+</main>
+<!-- JS : JQuery, Bootstrap -->
+<script src="/info/R401/js/jquery-3/jquery.slim.min.js"></script>
+<script src="/info/R401/js/bootstrap-4/bootstrap.bundle.min.js"></script>
+<script>
+    $(function () {
+        // Activation tooltip bootstrap sur la page
+        $('[data-toggle="tooltip"]').tooltip();
+        // Script du bouton de recherche
+        $("#searchButton").click(function () {
+            var searchString = $('#searchString').val().trim();
+            location = ('/info/R401/fr/boutique/chercher' + '/' + encodeURIComponent(searchString));
+            return false;
+        });
+    });
+</script>
+<!-- debut du block js -->
+<!-- fin du block js -->
+</body>
+</html>
