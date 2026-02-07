@@ -20,14 +20,17 @@ final class BoutiqueController extends AbstractController
         ]);
     }
 
-    #[Route('/boutique/rayon/{idCategorie}', name: 'app_boutique_rayon')] // Nouveau nom ici !
-    public function rayon(int $idCategorie,BoutiqueService $boutiqueService): Response
+    #[Route('/boutique/rayon/{idCategorie}', name: 'app_boutique_rayon')]
+    public function rayon(int $idCategorie, BoutiqueService $boutiqueService): Response
     {
-        // Attention : findProduitsByCategorie doit être défini quelque part (Service ou Repository)
-        $Produits = $boutiqueService->findProduitsByCategorie($idCategorie);
+        // On récupère les produits
+        $produits = $boutiqueService->findProduitsByCategorie($idCategorie);
+        // On récupère les catégories
+        $categorie = $boutiqueService->findCategorieById($idCategorie);
 
         return $this->render('boutique/rayon.html.twig', [
-            "Produits" => $Produits,
+            "Produits"  => $produits,
+            "categorie" => $categorie,
         ]);
     }
 }

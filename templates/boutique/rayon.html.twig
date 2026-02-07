@@ -14,13 +14,13 @@
             <h3>
                 <i class="fas fa-store"></i>
                 Rayon <b>{{ categorie.libelle }}</b>
-                <span class="badge badge-pill badge-info">{{ produits|length | format_number(min_integer_digits=2) }}</span>
+                <span class="badge badge-pill badge-info">{{ Produits|length | format_number(min_integer_digits=2) }}</span>
                 produit(s) disponible(s)
             </h3>
         </div>
 
         <div class="card-body row">
-            {% for produit in produits %}
+            {% for produit in Produits %}
                 <div class="col-md-4 mb-4">
                     {# Le lien onclick simulé pour l'ajout au panier #}
                     <div class="card clickable"
