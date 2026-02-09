@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Garder le contact{% endblock %}
+{% block title %}{{ 'default.contact.titre_page' | trans }}{% endblock %}
 
 {% block body %}
     <div class="card col-md-6 offset-3">
@@ -10,20 +10,20 @@
             </a>
             <h3>
                 <i class="fas fa-comments"></i>
-                Garder le contact
+                {{ 'default.contact.titre' | trans }}
             </h3>
         </div>
         <div class="card-body">
             <div class="card clickable" onclick="window.open('https://iut2.univ-grenoble-alpes.fr/l-iut2/qui-sommes-nous-/les-departements-de-l-iut2/informatique-info--149104.kjsp','_blank')">
-                <img {{ asset('images/iut2_info.png') }} class="card-img" alt="logo IUT2">
+                <img src="{{ asset('images/iut2_info.png') }}" class="card-img" alt="{{ 'default.contact.alt_logo' | trans }}">
                 <div class="card-body">
                     <h1 class="card-title">
                         <i class="fas fa-code"></i>
-                        BUT INFO Semestre 4
+                        BUT INFO {{ 'default.contact.semestre' | trans }} 4
                     </h1>
                     <h2 class="card-title">
                         <i class="fab fa-symfony"></i>
-                        Module R4.01
+                        {{ 'default.contact.module' | trans }} R4.01
                     </h2>
                     <p>
                         <i class="far fa-copyright"></i>

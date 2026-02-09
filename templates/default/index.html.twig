@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Accueil
-{% endblock %}
+    {{ 'boutique.index.titre_page' | trans }}
+{% endblock %} {# Un seul endblock ici #}
 
 {% block body %}
-    <div class="card col-md-12" xmlns="http://www.w3.org/1999/html">
+    <div class="card col-md-12">
         <div class="card-header">
             <h3>
-                <i class="fas fa-home"></i>
-                Boutique R4.01 -
-                <span class="text-primary">
-                    {{ dateActuelle | format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY - HH:mm") | capitalize }}
-                </span>
+                <i class="fas fa-store"></i>
+                {{ 'boutique.index.titre' | trans }}
+                ({{ dateActuelle|date('d/m/Y') }})
+                <span class="badge badge-pill badge-info">{{ categories|length }}</span>
+                {{ 'boutique.index.nb_rayons' | trans }}
             </h3>
         </div>
         <div class="card-body">
@@ -20,7 +20,7 @@
                 <img src="{{ asset("images/epicerie.jpg") }}" class="card-img-top" alt="Logo Boutique"/>
                 <div class="card-body">
                     <p class="card-text">
-                        <i>Ici rien à vendre, c'est juste pour apprendre...</i>
+                        <i>{{ 'boutique.index.phrase_bienvenue' | trans }}</i>
                     </p>
                 </div>
             </div>

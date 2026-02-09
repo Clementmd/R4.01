@@ -7,13 +7,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 # On peut définir ici un préfixe pour les URL de toutes les routes des actions de la classe DefaultController
-#[Route(
-    path: '/'
-)]
+#[Route('/{_locale}', requirements: ['_locale' => '%app.supported_locales%'],defaults: ['_locale' => 'fr'])]
 class DefaultController extends AbstractController
 {
     #[Route(
-        path: '', // L'URL auquel répondra cette action sera donc /
+        path: '/', // L'URL auquel répondra cette action sera donc /
         name: 'app_default_index',
     )]
     public function index(): Response

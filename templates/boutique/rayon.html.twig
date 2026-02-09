@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Rayon {{ categorie.libelle }}
+    {{ 'boutique.rayon.titre_page' | trans({'%libelle%': categorie.libelle}) }}
 {% endblock %}
 
 {% block body %}
@@ -13,9 +13,9 @@
             </a>
             <h3>
                 <i class="fas fa-store"></i>
-                Rayon <b>{{ categorie.libelle }}</b>
+                {{ 'boutique.rayon.entete' | trans({'%libelle%': categorie.libelle}) }}
                 <span class="badge badge-pill badge-info">{{ Produits|length | format_number(min_integer_digits=2) }}</span>
-                produit(s) disponible(s)
+                {{ 'boutique.rayon.nb_produits' | trans }}
             </h3>
         </div>
 
@@ -26,7 +26,7 @@
                     <div class="card clickable"
                          onclick="location = '{{ path('app_panier_ajouter', {'idProduit': produit.id}) }}'"
                          data-toggle="tooltip"
-                         title="Ajouter <b>{{ produit.libelle }}</b> à mon panier"
+                         title="{{ 'boutique.rayon.ajouter_panier' | trans({'%libelle%': produit.libelle}) }}"
                          data-placement="bottom"
                          data-html="true"
                          data-container="body">
@@ -50,7 +50,7 @@
                 </div>
             {% else %}
                 <div class="col-md-12">
-                    <p class="alert alert-info">Aucun produit n'est disponible dans ce rayon.</p>
+                    <p class="alert alert-info">{{ 'boutique.rayon.aucun_produit' | trans }}</p>
                 </div>
             {% endfor %}
         </div>

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nos Rayons{% endblock %}
+{% block title %}{{ 'boutique.index.titre_page' | trans }}{% endblock %}
 
 {% block body %}
     <div class="card col-md-12">
@@ -11,18 +11,18 @@
             </a>
             <h3>
                 <i class="fas fa-store"></i>
-                Boutique
-                <span class="badge badge-pill badge-info">{{categories|length }}</span>
-                rayon(s) proposé(s)
+                {{ 'boutique.index.titre' | trans }}
+                <span class="badge badge-pill badge-info">{{ categories|length }}</span>
+                {{ 'boutique.index.nb_rayons' | trans }}
             </h3>
         </div>
 
         <div class="card-body row">
             {% for uneCategorie in categories %}
                 <div class="col-md-3">
-                    {# On utilise le nom de la route définit dans le contrôleur (app_boutique_rayon) #}
+                    {# On utilise le nom de la route défini dans le contrôleur #}
                     <div class="card clickable" onclick="location = '{{ path('app_boutique_rayon', {'idCategorie': uneCategorie.id}) }}'">
-                        {# Génération dynamique du chemin de l'image #}
+                        {# Image dynamique #}
                         <img src="/images/categories/{{ uneCategorie.visuel }}" class="card-img-top" alt="{{ uneCategorie.libelle }}">
 
                         <div class="card-body">
@@ -35,7 +35,7 @@
                 </div>
             {% else %}
                 <div class="col-md-12">
-                    <p class="alert alert-warning">Aucun rayon n'est disponible pour le moment.</p>
+                    <p class="alert alert-warning">{{ 'boutique.index.aucun_rayon' | trans }}</p>
                 </div>
             {% endfor %}
         </div>
