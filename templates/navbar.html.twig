@@ -13,21 +13,27 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                {# AJOUT de la locale pour le lien Boutique #}
                 <a class="nav-link" href="{{ path("app_boutique_index", {'_locale': app.request.locale}) }}">
                     <i class="fas fa-store"></i>
                     {{ 'navbar.boutique' | trans }}
                 </a>
             </li>
             <li class="nav-item">
-                {# AJOUT de la locale pour le lien Contact #}
                 <a class="nav-link" href="{{ path("app_default_contact", {'_locale': app.request.locale}) }}">
                     <i class="fas fa-comments"></i>
                     {{ 'navbar.contact' | trans }}
                 </a>
             </li>
         </ul>
+        {# Recherche de produits #}
+        <div class="form-inline my-2 my-lg-0">
+            <input id="input-recherche" class="form-control mr-sm-2" type="text" placeholder="{{ 'navbar.recherche'|trans }}">
+            <button id="btn-recherche" class="btn btn-outline-success my-2 my-sm-0">
+                {{ 'navbar.chercher'|trans }}
+            </button>
+        </div>
 
+        {# Menu changement de langue #}
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdownLang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -35,7 +41,6 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownLang">
                     {% for uneLocale in supported_locales|split('|') %}
-                        {# Ce lien là est déjà bon ! #}
                         <a class="dropdown-item {% if app.request.locale == uneLocale %}active{% endif %}"
                            href="{{ path(app.request.attributes.get('_route'),
                                app.request.attributes.get('_route_params')|merge({'_locale': uneLocale})) }}">

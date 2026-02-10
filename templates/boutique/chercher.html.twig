@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'recherche.titre'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>
+            {{ 'recherche.resultats_pour'|trans }} : "{{ recherche }}"
+        </h1>
+
+        <hr>
+
+        <div class="row">
+            {% if produits is not empty %}
+                {% for produit in produits %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="{{ asset('images/' ~ produit.image) }}" class="card-img-top" alt="{{ produit.libelle }}">
+
+                            <div class="card-body">
+                                <h5 class="card-title">{{ produit.libelle }}</h5>
+                                <p class="card-text">
+                                    {{ produit.texte|u.truncate(100, '...') }}
+                                </p>
+                            </div>
+
+                            <div class="card-footer">
+                                <span class="badge badge-primary">{{ produit.prix }} €</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12">
+                    <div class="alert alert-warning">
+                        {{ 'recherche.aucun_resultat'|trans }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mt-4">
+            <a href="{{ path('app_boutique_index', {'_locale': app.request.locale}) }}" class="btn btn-secondary">
+                {{ 'recherche.retour'|trans }}
+            </a>
+        </div>
+    </div>
+{% endblock %}

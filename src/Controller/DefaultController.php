@@ -8,15 +8,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class DefaultController extends AbstractController
 {
-    // Cette route attrape le "vide" (localhost:8000) et redirige vers le français
-    #[Route('/')]
-    public function redirectNoLocale(): Response
-    {
-        return $this->redirectToRoute('app_default_index', ['_locale' => 'fr']);
-    }
-
-    // Cette route gère les vraies pages /fr/ et /en/
-    #[Route('/{_locale}/', name: 'app_default_index', requirements: ['_locale' => 'fr|en'])]
+    #[Route(
+        path: '/{_locale}', // L'URL auquel répondra cette action sera donc /
+        name: 'app_default_index',
+        requirements: ['_locale' => '%app.supported_locales%'],
+        defaults: ['_locale' => 'fr']
+    )]
     public function index(): Response
     {
         $now = new \DateTime("now");

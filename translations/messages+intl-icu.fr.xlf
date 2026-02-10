@@ -77,6 +77,14 @@
         <source>navbar.contact</source>
         <target>Contact</target>
       </trans-unit>
+      <trans-unit id="nav_search_input">
+                <source>navbar.recherche</source>
+                <target>Rechercher un produit...</target>
+            </trans-unit>
+            <trans-unit id="nav_search_btn">
+                <source>navbar.chercher</source>
+                <target>Chercher</target>
+            </trans-unit>
     </body>
   </file>
 </xliff>

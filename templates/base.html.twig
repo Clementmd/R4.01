@@ -54,8 +54,26 @@
             function onSearchClick(searchString) {
             }
 		</script>
-		<!-- debut du block js spécifique -->
-		{% block js %}{%  endblock %}
-		<!-- fin du block js spécifique -->
+		{% block js %}
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('btn-recherche');
+            const input = document.getElementById('input-recherche');
+
+            if (btn && input) {
+                btn.addEventListener('click', function() {
+                const saisie = input.value;
+                const rechercheEncodee = encodeURIComponent(saisie);
+                const urlBase = "{{ path('app_boutique_chercher', {'_locale': app.request.locale, 'recherche': ''}) }}";
+                window.location.href = urlBase + rechercheEncodee;
+            });
+
+            input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {btn.click();}
+            });
+            }
+            });
+            </script>
+        {%  endblock %}
 	</body>
 </html>

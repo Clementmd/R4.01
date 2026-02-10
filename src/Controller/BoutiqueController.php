@@ -20,6 +20,19 @@ final class BoutiqueController extends AbstractController
             "categories" => $categories,
         ]);
     }
+    #[Route(path: '/chercher/{recherche}', name: 'app_boutique_chercher',
+        requirements: ['recherche' => '.+'],
+        defaults: ['recherche' => ''])]
+
+    public function chercher(BoutiqueService $boutique,string $recherche) : Response{
+        $produits = $boutique->findProduitsByLibelleOrTexte($recherche);
+
+        return $this->render('boutique/chercher.html.twig',[
+            "produits" => $produits,
+            "recherche" => $recherche
+        ]);
+    }
+
 
     #[Route('/boutique/rayon/{idCategorie}', name: 'app_boutique_rayon', requirements: ['idCategorie' => '\d+'])]
     public function rayon(int $idCategorie, BoutiqueService $boutiqueService): Response
