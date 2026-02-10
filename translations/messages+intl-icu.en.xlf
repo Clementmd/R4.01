@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="bSezmtj" resname="boutique.index.titre_page">
+        <source>boutique.index.titre_page</source>
+        <target>Our Departments</target>
+      </trans-unit>
+      <trans-unit id="SHq442S" resname="boutique.index.titre">
+        <source>boutique.index.titre</source>
+        <target>Shop</target>
+      </trans-unit>
+      <trans-unit id="k6Y55No" resname="boutique.index.nb_rayons">
+        <source>boutique.index.nb_rayons</source>
+        <target>department(s) available</target>
+      </trans-unit>
+      <trans-unit id=".EFpFa9" resname="boutique.index.phrase_bienvenue">
+        <source>boutique.index.phrase_bienvenue</source>
+        <target>Nothing to sell here, just learning...</target>
+      </trans-unit>
+      <trans-unit id="qKTbwnx" resname="default.contact.titre_page">
+        <source>default.contact.titre_page</source>
+        <target>Keep in touch</target>
+      </trans-unit>
+      <trans-unit id="UbYUDT1" resname="default.contact.titre">
+        <source>default.contact.titre</source>
+        <target>Keep in touch</target>
+      </trans-unit>
+      <trans-unit id="lwi0y5w" resname="default.contact.alt_logo">
+        <source>default.contact.alt_logo</source>
+        <target>IUT2 Logo</target>
+      </trans-unit>
+      <trans-unit id="GzcgurK" resname="default.contact.semestre">
+        <source>default.contact.semestre</source>
+        <target>Semester</target>
+      </trans-unit>
+      <trans-unit id="36sudtl" resname="default.contact.module">
+        <source>default.contact.module</source>
+        <target>Module</target>
+      </trans-unit>
+      <trans-unit id="kl2okPj" resname="boutique.rayon.titre_page">
+        <source>boutique.rayon.titre_page</source>
+        <target>%libelle% Department</target>
+      </trans-unit>
+      <trans-unit id="Eq1rNWe" resname="boutique.rayon.entete">
+        <source>boutique.rayon.entete</source>
+        <target>Department: %libelle%</target>
+      </trans-unit>
+      <trans-unit id="JRrYCnT" resname="boutique.rayon.nb_produits">
+        <source>boutique.rayon.nb_produits</source>
+        <target>product(s) available</target>
+      </trans-unit>
+      <trans-unit id="gbl0RB3" resname="boutique.rayon.ajouter_panier">
+        <source>boutique.rayon.ajouter_panier</source>
+        <target>Add %libelle% to my cart</target>
+      </trans-unit>
+      <trans-unit id="RSvCoAD" resname="boutique.rayon.aucun_produit">
+        <source>boutique.rayon.aucun_produit</source>
+        <target>No products available in this department.</target>
+      </trans-unit>
+      <trans-unit id="mbrrs7X" resname="boutique.index.aucun_rayon">
+        <source>boutique.index.aucun_rayon</source>
+        <target>No department available at the moment.</target>
+      </trans-unit>
+      <trans-unit id="K1XEeFd" resname="navbar.titre">
+        <source>navbar.titre</source>
+        <target>Home Shop</target>
+      </trans-unit>
+      <trans-unit id="kuhtb5p" resname="navbar.boutique">
+        <source>navbar.boutique</source>
+        <target>Shop</target>
+      </trans-unit>
+      <trans-unit id="nCSBDIb" resname="navbar.contact">
+        <source>navbar.contact</source>
+        <target>Contact</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

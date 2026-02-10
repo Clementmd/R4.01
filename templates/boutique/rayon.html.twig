@@ -14,7 +14,7 @@
             <h3>
                 <i class="fas fa-store"></i>
                 {{ 'boutique.rayon.entete' | trans({'%libelle%': categorie.libelle}) }}
-                <span class="badge badge-pill badge-info">{{ Produits|length | format_number(min_integer_digits=2) }}</span>
+                <span class="badge badge-pill badge-info">{{ Produits|length  }}</span>
                 {{ 'boutique.rayon.nb_produits' | trans }}
             </h3>
         </div>
@@ -24,9 +24,7 @@
                 <div class="col-md-4 mb-4">
                     {# Le lien onclick simulé pour l'ajout au panier #}
                     <div class="card clickable"
-                         onclick="location = '{{ path('app_panier_ajouter', {'idProduit': produit.id}) }}'"
                          data-toggle="tooltip"
-                         title="{{ 'boutique.rayon.ajouter_panier' | trans({'%libelle%': produit.libelle}) }}"
                          data-placement="bottom"
                          data-html="true"
                          data-container="body">

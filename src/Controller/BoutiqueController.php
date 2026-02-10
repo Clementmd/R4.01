@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/{_locale}', requirements: ['_locale' => '%app.supported_locales%'])]
+#[Route('/{_locale}', requirements: ['_locale' => '%app.supported_locales%'],defaults: ['_locale' => 'fr'])]
 final class BoutiqueController extends AbstractController
 {
     // BoutiqueController.php

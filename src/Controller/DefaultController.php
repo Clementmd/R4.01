@@ -6,45 +6,35 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-# On peut définir ici un préfixe pour les URL de toutes les routes des actions de la classe DefaultController
-#[Route('/{_locale}', requirements: ['_locale' => '%app.supported_locales%'],defaults: ['_locale' => 'fr'])]
 class DefaultController extends AbstractController
 {
-    #[Route(
-        path: '/', // L'URL auquel répondra cette action sera donc /
-        name: 'app_default_index',
-    )]
+    // Cette route attrape le "vide" (localhost:8000) et redirige vers le français
+    #[Route('/')]
+    public function redirectNoLocale(): Response
+    {
+        return $this->redirectToRoute('app_default_index', ['_locale' => 'fr']);
+    }
+
+    // Cette route gère les vraies pages /fr/ et /en/
+    #[Route('/{_locale}/', name: 'app_default_index', requirements: ['_locale' => 'fr|en'])]
     public function index(): Response
     {
-        // On récupère les données à transmettre à la vue
-        // Ici c'est la date du jour, mais ce pourrait être des données du Modèle
         $now = new \DateTime("now");
-
-        // Et on retourne une réponse HTTP au format HTML (la vue)
-        //   fabriquée à partir d'un template Twig
-        //   auquel on transmet les données qu'il doit mettre en forme
         return $this->render('default/index.html.twig', [
             "dateActuelle" => $now,
         ]);
     }
 
-    #[Route(
-        path: 'test', // L'URL auquel répondra cette action sera donc /test
-        name: 'app_default_test',
-    )]
-    public function test(): Response
-    {
-        // On renvoie une réponse HTTP, au format HTML (par défaut)
-        //  qui contient juste un petit texte.
-        return new Response("Hello World !");
-    }
-    #[Route(
-        path: '/contact',
-        name: 'app_default_contact',
-    )]
+    // On ajoute { _locale } devant contact pour que le bouton de langue fonctionne aussi ici
+    #[Route('/{_locale}/contact', name: 'app_default_contact', requirements: ['_locale' => 'fr|en'], defaults: ['_locale' => 'fr'])]
     public function contact(): Response
     {
-        // On rend le template situé dans templates/default/contact.html.twig
         return $this->render('default/contact.html.twig');
+    }
+
+    #[Route('/{_locale}/test', name: 'app_default_test', requirements: ['_locale' => 'fr|en'], defaults: ['_locale' => 'fr'])]
+    public function test(): Response
+    {
+        return new Response("Hello World !");
     }
 }
