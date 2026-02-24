@@ -58,4 +58,10 @@ class PanierController extends AbstractController
         $panierService->vider();
         return $this->redirectToRoute('app_panier_index');
     }
+
+    public function nombreProduit(PanierService $panierService): Response
+    {
+        $nb = $panierService->getNombreProduits();
+        return new Response("On a " + $nb + "produit(s)");
+    }
 }
