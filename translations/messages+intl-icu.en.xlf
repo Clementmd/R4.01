@@ -78,13 +78,17 @@
         <target>Contact</target>
       </trans-unit>
       <trans-unit id="nav_search_input">
-                <source>navbar.recherche</source>
-                <target>Search for a product...</target>
-            </trans-unit>
-            <trans-unit id="nav_search_btn">
-                <source>navbar.chercher</source>
-                <target>Search</target>
-            </trans-unit>
+        <source>navbar.recherche</source>
+        <target>Search for a product...</target>
+      </trans-unit>
+      <trans-unit id="nav_search_btn">
+        <source>navbar.chercher</source>
+        <target>Search</target>
+      </trans-unit>
+        <trans-unit id="nav_panier">
+            <source>navbar.panier</source>
+            <target>My Cart</target>
+        </trans-unit>
     </body>
   </file>
 </xliff>
