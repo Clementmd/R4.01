@@ -24,6 +24,15 @@
                     {{ 'navbar.contact' | trans }}
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_panier_index', {'_locale': app.request.locale}) }}">
+                    <i class="fas fa-shopping-cart"></i>
+                    {{ 'navbar.panier'|trans }}
+                    <span class="badge badge-pill badge-warning">
+                    {{ render(controller('App\\Controller\\PanierController::nombreProduits')) }}
+                </span>
+                </a>
+            </li>
         </ul>
         {# Recherche de produits #}
         <div class="form-inline my-2 my-lg-0">
@@ -50,14 +59,5 @@
                 </div>
             </li>
         </ul>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_panier_index', {'_locale': app.request.locale}) }}">
-                <i class="fas fa-shopping-cart"></i>
-                {{ 'navbar.panier'|trans }}
-                <span class="badge badge-pill badge-warning">
-                    {{ render(controller('App\\Controller\\PanierController::nombreProduits')) }}
-                </span>
-            </a>
-        </li>
     </div>
 </nav>
