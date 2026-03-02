@@ -40,7 +40,7 @@ class PanierService
     // Renvoie le nombre de produits dans le panier
     public function getNombreProduits() : int
     {
-      return count($this->panier);
+        return array_sum($this->panier);
     }
 
     // Ajouter au panier le produit $idProduit en quantite $quantite
@@ -90,7 +90,7 @@ class PanierService
         foreach ($this->panier as $idProduit => $quantite) {
             $produit = $this->boutique->findProduitById($idProduit);
             if ($produit) {
-                $contenu = [
+                $contenu[] = [
                     'produit' => $produit,
                     'quantite' => $quantite
                 ];
