@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\CategorieRepository;
+use App\Repository\ProduitRepository;
 use App\Service\BoutiqueService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,9 +15,9 @@ final class BoutiqueController extends AbstractController
     // BoutiqueController.php
 
     #[Route('/boutique', name: 'app_boutique_index')] // Nom unique pour l'index
-    public function index(BoutiqueService $boutiqueService): Response
+    public function index(CategorieRepository $categorieRepository): Response
     {
-        $categories = $boutiqueService->findAllCategories();
+        $categories = $categorieRepository->findAll();
         return $this->render('boutique/index.html.twig',[
             "categories" => $categories,
         ]);
@@ -24,8 +26,8 @@ final class BoutiqueController extends AbstractController
         requirements: ['recherche' => '.+'],
         defaults: ['recherche' => ''])]
 
-    public function chercher(BoutiqueService $boutique,string $recherche) : Response{
-        $produits = $boutique->findProduitsByLibelleOrTexte($recherche);
+    public function chercher(ProduitRepository $produitRepository,string $recherche) : Response{
+        $produits = $produitRepository->findByLibelleOrTexte($recherche);
 
         return $this->render('boutique/chercher.html.twig',[
             "produits" => $produits,
@@ -35,15 +37,13 @@ final class BoutiqueController extends AbstractController
 
 
     #[Route('/boutique/rayon/{idCategorie}', name: 'app_boutique_rayon', requirements: ['idCategorie' => '\d+'])]
-    public function rayon(int $idCategorie, BoutiqueService $boutiqueService): Response
+    public function rayon(int $idCategorie, CategorieRepository $categorieRepository,ProduitRepository $produitRepository): Response
     {
-        // On récupère les produits
-        $produits = $boutiqueService->findProduitsByCategorie($idCategorie);
         // On récupère les catégories
-        $categorie = $boutiqueService->findCategorieById($idCategorie);
+        $categorie = $categorieRepository->find($idCategorie);
 
         return $this->render('boutique/rayon.html.twig', [
-            "Produits"  => $produits,
+            "Produits"  => $produitRepository->find(['categorie' => $idCategorie]),
             "categorie" => $categorie,
         ]);
     }
