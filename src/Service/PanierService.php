@@ -1,40 +1,33 @@
 <?php
 namespace App\Service;
 
+use App\Repository\ProduitRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
-use App\Service\BoutiqueService;
 
-// Service pour manipuler le panier et le stocker en session
 class PanierService
 {
-    ////////////////////////////////////////////////////////////////////////////
-    private $session;   // Le service session
-    private $boutique;  // Le service boutique
-    private $panier;    // Tableau associatif, la clé est un idProduit, la valeur associée est une quantité
-                        //   donc $this->panier[$idProduit] = quantité du produit dont l'id = $idProduit
-    const PANIER_SESSION = 'panier'; // Le nom de la variable de session pour faire persister $this->panier
+    private $session;
+    private $produitRepository;
+    private $panier;
 
-    // Constructeur du service
-    public function __construct(RequestStack $requestStack, BoutiqueService $boutique)
+    // Injection de ProduitRepository à la place de BoutiqueService
+    public function __construct(RequestStack $requestStack, ProduitRepository $produitRepository)
     {
-        // Récupération des services session et BoutiqueService
-        $this->boutique = $boutique;
+        $this->produitRepository = $produitRepository;
         $this->session = $requestStack->getSession();
-        // Récupération du panier en session s'il existe, init. à vide sinon
         $this->panier = $this->session->get('panier', []);
     }
 
-    // Renvoie le montant total du panier
     public function getTotal() : float
     {
-      $total = 0;
-      foreach ($this->panier as $idProduit => $quantite) {
-          $produit = $this->boutique->findProduitById($idProduit);
-          if ($produit) {
-              $total += $quantite * $produit->getPrix();
-          }
-      }
-      return $total;
+        $total = 0;
+        foreach ($this->panier as $idProduit => $quantite) {
+            $produit = $this->produitRepository->find($idProduit);
+            if ($produit) {
+                $total += $quantite * $produit->getPrix();
+            }
+        }
+        return $total;
     }
 
     // Renvoie le nombre de produits dans le panier
@@ -88,12 +81,9 @@ class PanierService
     {
         $contenu = [];
         foreach ($this->panier as $idProduit => $quantite) {
-            $produit = $this->boutique->findProduitById($idProduit);
+            $produit = $this->produitRepository->find($idProduit);
             if ($produit) {
-                $contenu[] = [
-                    'produit' => $produit,
-                    'quantite' => $quantite
-                ];
+                $contenu[] = ['produit' => $produit, 'quantite' => $quantite];
             }
         }
         return $contenu;

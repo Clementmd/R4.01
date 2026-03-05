@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Service\PanierService;
-use App\Service\BoutiqueService; // Importation nécessaire pour vérifier les produits
+use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,10 +20,10 @@ class PanierController extends AbstractController
     }
 
     #[Route('/ajouter/{idProduit}/{quantite}', name: 'app_panier_ajouter', requirements: ['idProduit' => '\d+', 'quantite' => '\d+'], defaults: ['quantite' => 1])]
-    public function ajouter(int $idProduit, int $quantite, PanierService $panierService, BoutiqueService $boutique): Response
+    public function ajouter(int $idProduit, int $quantite, PanierService $panierService, ProduitRepository $produitRepository): Response
     {
-        if (!$boutique->findProduitById($idProduit)) {
-            throw $this->createNotFoundException("Impossible d'ajouter : le produit n°$idProduit n'existe pas.");
+        if (!$produitRepository->find($idProduit)) {
+            throw $this->createNotFoundException("Le produit n'existe pas.");
         }
 
         $panierService->ajouterProduit($idProduit, $quantite);
@@ -31,23 +31,15 @@ class PanierController extends AbstractController
     }
 
     #[Route('/enlever/{idProduit}/{quantite}', name: 'app_panier_enlever', requirements: ['idProduit' => '\d+', 'quantite' => '\d+'], defaults: ['quantite' => 1])]
-    public function enlever(int $idProduit, int $quantite, PanierService $panierService, BoutiqueService $boutique): Response
+    public function enlever(int $idProduit, int $quantite, PanierService $panierService): Response
     {
-        if (!$boutique->findProduitById($idProduit)) {
-            throw $this->createNotFoundException("Impossible d'enlever : le produit n°$idProduit n'existe pas.");
-        }
-
         $panierService->enleverProduit($idProduit, $quantite);
         return $this->redirectToRoute('app_panier_index');
     }
 
     #[Route('/supprimer/{idProduit}', name: 'app_panier_supprimer', requirements: ['idProduit' => '\d+'])]
-    public function supprimer(int $idProduit, PanierService $panierService, BoutiqueService $boutique): Response
+    public function supprimer(int $idProduit, PanierService $panierService): Response
     {
-        if (!$boutique->findProduitById($idProduit)) {
-            throw $this->createNotFoundException("Impossible de supprimer : le produit n°$idProduit n'existe pas.");
-        }
-
         $panierService->supprimerProduit($idProduit);
         return $this->redirectToRoute('app_panier_index');
     }
@@ -61,7 +53,6 @@ class PanierController extends AbstractController
 
     public function nombreProduits(PanierService $panierService): Response
     {
-        $nb = $panierService->getNombreProduits();
-        return new Response((string)$nb);
+        return new Response((string)$panierService->getNombreProduits());
     }
 }

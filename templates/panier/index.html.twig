@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h1 class="mb-4">Votre Panier</h1>
+        <h1 class="mb-4"><i class="fas fa-shopping-cart"></i> Votre Panier</h1>
 
         {% if items is not empty %}
             <div class="table-responsive">
@@ -14,7 +14,7 @@
                         <th>Produit</th>
                         <th class="text-center">Prix Unitaire</th>
                         <th class="text-center">Quantité</th>
-                        <th class="text-center">Total</th>
+                        <th class="text-center">Total Ligne</th>
                         <th class="text-center">Actions</th>
                     </tr>
                     </thead>
@@ -24,22 +24,29 @@
                             <td>
                                 <strong>{{ item.produit.libelle }}</strong>
                             </td>
-                            <td class="text-center">{{ item.produit.prix }} €</td>
                             <td class="text-center">
-                                {# On affiche la quantité actuelle #}
-                                <span class="badge badge-light border">{{ item.quantite }}</span>
+                                {{ item.produit.prix|number_format(2, ',', ' ') }} €
                             </td>
                             <td class="text-center">
-                                {# Calcul du sous-total par produit #}
-                                {{ item.produit.prix * item.quantite }} €
-                            </td>
-                            <td class="text-center">
-                                {# Boutons d'action utilisant tes routes du contrôleur #}
-                                <div class="btn-group" role="group">
-                                    <a href="{{ path('app_panier_ajouter', {idProduit: item.produit.id}) }}" class="btn btn-sm btn-outline-success" title="Ajouter 1"></a>
-                                    <a href="{{ path('app_panier_enlever', {idProduit: item.produit.id}) }}" class="btn btn-sm btn-outline-warning" title="Enlever 1"></a>
-                                    <a href="{{ path('app_panier_supprimer', {idProduit: item.produit.id}) }}" class="btn btn-sm btn-outline-danger" title="Supprimer">Supprimer</a>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <a href="{{ path('app_panier_enlever', {idProduit: item.produit.id}) }}" class="btn btn-sm btn-outline-warning mx-2">
+                                        <i class="fas fa-minus"></i>
+                                    </a>
+
+                                    <span class="badge badge-light border px-3 py-2">{{ item.quantite }}</span>
+
+                                    <a href="{{ path('app_panier_ajouter', {idProduit: item.produit.id}) }}" class="btn btn-sm btn-outline-success mx-2">
+                                        <i class="fas fa-plus"></i>
+                                    </a>
                                 </div>
+                            </td>
+                            <td class="text-center">
+                                <strong>{{ (item.produit.prix * item.quantite)|number_format(2, ',', ' ') }} €</strong>
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ path('app_panier_supprimer', {idProduit: item.produit.id}) }}" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i> Supprimer
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -47,7 +54,9 @@
                     <tfoot class="table-secondary">
                     <tr>
                         <td colspan="3" class="text-right"><strong>Montant Total à régler :</strong></td>
-                        <td class="text-center"><strong>{{ total }} €</strong></td>
+                        <td class="text-center text-primary">
+                            <h4 class="mb-0"><strong>{{ total|number_format(2, ',', ' ') }} €</strong></h4>
+                        </td>
                         <td></td>
                     </tr>
                     </tfoot>
@@ -55,23 +64,22 @@
             </div>
 
             <div class="d-flex justify-content-between mt-4">
-                <a href="{{ path('app_panier_vider') }}" class="btn btn-danger">
-                    <i class="fas fa-trash"></i> Vider le panier
+                <a href="{{ path('app_panier_vider') }}" class="btn btn-outline-danger">
+                    <i class="fas fa-eraser"></i> Vider le panier
                 </a>
                 <div>
                     <a href="{{ path('app_boutique_index') }}" class="btn btn-primary">
-                        <i class="fas fa-shopping-bag"></i> Continuer mes achats
+                        <i class="fas fa-arrow-left"></i> Continuer mes achats
                     </a>
                 </div>
             </div>
 
         {% else %}
-            {# Message affiché si le panier est vide #}
             <div class="alert alert-info shadow-sm">
                 <h4 class="alert-heading">Votre panier est vide !</h4>
                 <p>Il semblerait que vous n'ayez pas encore ajouté de produits.</p>
                 <hr>
-                <a href="{{ path('app_boutique_index') }}" class="btn btn-info">Aller à la boutique</a>
+                <a href="{{ path('app_boutique_index') }}" class="btn btn-info">Retourner à la boutique</a>
             </div>
         {% endif %}
     </div>
