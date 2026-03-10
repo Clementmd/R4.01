@@ -6,6 +6,8 @@ use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\UsagerRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/{_locale}/panier', requirements: ['_locale' => 'fr|en'])]
 class PanierController extends AbstractController
@@ -51,11 +53,6 @@ class PanierController extends AbstractController
         return $this->redirectToRoute('app_panier_index');
     }
 
-    // N'oubliez pas d'ajouter ces "use" en haut du fichier
-    use App\Repository\UsagerRepository;
-    use Doctrine\ORM\EntityManagerInterface;
-
-// ...
 
     #[Route('/{_locale}/panier/commander', name: 'app_panier_commander')]
     public function commander(PanierService $panierService, EntityManagerInterface $em, UsagerRepository $usagerRepo): Response {
@@ -64,11 +61,11 @@ class PanierController extends AbstractController
 
         if ($commande) {
             return $this->render('panier/commande.html.twig', [
-                'commande' => $commande
+                'commande' => $commande,
+                'usager' => $usager,
             ]);
         }
 
-        // Si le panier était vide, on redirige vers l'index du panier
         return $this->redirectToRoute('app_panier_index');
     }
 
