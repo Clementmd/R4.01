@@ -51,8 +51,31 @@ class PanierController extends AbstractController
         return $this->redirectToRoute('app_panier_index');
     }
 
+    // N'oubliez pas d'ajouter ces "use" en haut du fichier
+    use App\Repository\UsagerRepository;
+    use Doctrine\ORM\EntityManagerInterface;
+
+// ...
+
+    #[Route('/{_locale}/panier/commander', name: 'app_panier_commander')]
+    public function commander(PanierService $panierService, EntityManagerInterface $em, UsagerRepository $usagerRepo): Response {
+        $usager = $usagerRepo->find(1);
+        $commande = $panierService->panierToCommande($usager);
+
+        if ($commande) {
+            return $this->render('panier/commande.html.twig', [
+                'commande' => $commande
+            ]);
+        }
+
+        // Si le panier était vide, on redirige vers l'index du panier
+        return $this->redirectToRoute('app_panier_index');
+    }
+
     public function nombreProduits(PanierService $panierService): Response
     {
         return new Response((string)$panierService->getNombreProduits());
     }
+
+
 }

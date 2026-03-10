@@ -1,23 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon Compte{% endblock %}
+{% block title %}Confirmation de commande{% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
-        <h1>Informations de l'Usager </h1>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow border-success">
+                    <div class="card-header bg-success text-white">
+                        <h2 class="text-center mb-0">
+                            <i class="fas fa-check-circle"></i> Commande validée !
+                        </h2>
+                    </div>
+                    <div class="card-body text-center">
+                        <h4 class="card-title">Merci {{ commande.usager.prenom }} {{ commande.usager.nom }}</h4>
+                        <p class="card-text lead">
+                            Votre commande a bien été enregistrée dans notre système.
+                        </p>
 
-        {% if usager %}
-            <div class="card mt-4">
-                <div class="card-body">
-                    <p><strong>Nom :</strong> {{ usager.nom }}</p>
-                    <p><strong>Prénom :</strong> {{ usager.prenom }}</p>
-                    <p><strong>Email :</strong> {{ usager.email }}</p>
+                        <div class="alert alert-secondary mt-4">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <strong>Numéro de commande :</strong>
+                                    <span class="badge badge-dark">#{{ commande.id }}</span>
+                                </li>
+                                <li class="mt-2">
+                                    <strong>Date :</strong>
+                                    {{ commande.dateCreation|date('d/m/Y à H:i') }}
+                                </li>
+                            </ul>
+                        </div>
+
+                        <p class="text-muted mt-4">
+                            Un email de confirmation vous a été envoyé à l'adresse :
+                            <strong>{{ commande.usager.email }}</strong>
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white text-center">
+                        <a href="{{ path('app_boutique_index') }}" class="btn btn-outline-primary">
+                            <i class="fas fa-shopping-bag"></i> Continuer mes achats
+                        </a>
+                    </div>
                 </div>
             </div>
-        {% else %}
-            <div class="alert alert-warning">
-                L'usager n'existe pas. Veuillez <a href="{{ path('app_usager_new') }}">créer un compte</a>.
-            </div>
-        {% endif %}
+        </div>
     </div>
 {% endblock %}

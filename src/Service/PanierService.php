@@ -1,6 +1,8 @@
 <?php
 namespace App\Service;
 
+use App\Entity\Commande;
+use App\Entity\Usager;
 use App\Repository\ProduitRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -9,13 +11,14 @@ class PanierService
     private $session;
     private $produitRepository;
     private $panier;
+    const PANIER_SESSION = 'panier';
 
     // Injection de ProduitRepository à la place de BoutiqueService
     public function __construct(RequestStack $requestStack, ProduitRepository $produitRepository)
     {
         $this->produitRepository = $produitRepository;
         $this->session = $requestStack->getSession();
-        $this->panier = $this->session->get('panier', []);
+        $this->panier = $this->session->get(self::PANIER_SESSION, []);
     }
 
     public function getTotal() : float
@@ -44,7 +47,7 @@ class PanierService
       }else{
           $this->panier[$idProduit] = $quantite;
       }
-      $this->session->set('panier', $this->panier);
+      $this->session->set(self::PANIER_SESSION, $this->panier);
     }
 
     // Enlever du panier le produit $idProduit en quantite $quantite
@@ -56,7 +59,7 @@ class PanierService
                 unset($this->panier[$idProduit]);
             }
         }
-        $this->session->set('panier', $this->panier);
+        $this->session->set(self::PANIER_SESSION, $this->panier);
     }
 
     // Supprimer le produit $idProduit du panier
@@ -64,7 +67,7 @@ class PanierService
     {
         if (isset($this->panier[$idProduit])) {
             unset($this->panier[$idProduit]);
-            $this->session->set('panier', $this->panier);
+            $this->session->set(self::PANIER_SESSION, $this->panier);
         }
     }
 
@@ -72,7 +75,7 @@ class PanierService
     public function vider() : void
     {
         $this->panier=[];
-        $this->session->remove('panier');
+        $this->session->remove(self::PANIER_SESSION);
     }
 
     // Renvoie le contenu du panier dans le but de l'afficher
@@ -87,5 +90,32 @@ class PanierService
             }
         }
         return $contenu;
+    }
+    public function panierToCommande(Usager $usager): ?Commande
+    {
+        if (empty($this->panier)) {
+            return null;
+        }
+
+        $commande = new Commande();
+        $commande->setUsager($usager);
+        $commande->setDateCreation(new \DateTimeImmutable());
+        $commande->setValidation(false);
+
+        foreach ($this->panier as $idProduit => $quantite) {
+            $produit = $this->produitRepository->find($idProduit);
+
+            if ($produit) {
+                $ligne = new LigneCommande();
+                $ligne->setProduit($produit);
+                $ligne->setQuantite($quantite);
+                $ligne->setPrix($produit->getPrix());
+                $ligne->setCommande($commande);
+
+                $commande->addLigneCommande($ligne);
+            }
+        }
+        $this->vider();
+        return $commande;
     }
 }

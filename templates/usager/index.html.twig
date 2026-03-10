@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Compte{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Informations de l'Usager </h1>
+
+        {% if usager %}
+            <div class="card mt-4">
+                <div class="card-body">
+                    <p><strong>Nom :</strong> {{ usager.nom }}</p>
+                    <p><strong>Prénom :</strong> {{ usager.prenom }}</p>
+                    <p><strong>Email :</strong> {{ usager.email }}</p>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-warning">
+                L'usager n'existe pas. Veuillez <a href="{{ path('app_usager_new') }}">créer un compte</a>.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
