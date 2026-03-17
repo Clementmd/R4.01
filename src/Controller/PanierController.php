@@ -54,7 +54,7 @@ class PanierController extends AbstractController
     }
 
 
-    #[Route('/{_locale}/panier/commander', name: 'app_panier_commander')]
+    #[Route('/commander', name: 'app_panier_commander')]
     public function commander(PanierService $panierService, EntityManagerInterface $em, UsagerRepository $usagerRepo): Response {
         $usager = $usagerRepo->find(1);
         $commande = $panierService->panierToCommande($usager);
