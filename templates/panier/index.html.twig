@@ -67,10 +67,21 @@
                 <a href="{{ path('app_panier_vider') }}" class="btn btn-outline-danger">
                     <i class="fas fa-eraser"></i> Vider le panier
                 </a>
+
                 <div>
-                    <a href="{{ path('app_boutique_index') }}" class="btn btn-primary">
+                    <a href="{{ path('app_boutique_index') }}" class="btn btn-primary mr-2">
                         <i class="fas fa-arrow-left"></i> Continuer mes achats
                     </a>
+
+                    {% if app.user %}
+                        <a href="{{ path('app_panier_commander') }}" class="btn btn-success">
+                            <i class="fas fa-shopping-basket"></i> Passer la commande
+                        </a>
+                    {% else %}
+                        <a class="btn btn-warning">
+                            <i class="fas fa-sign-in-alt"></i> Connectez-vous pour commander
+                        </a>
+                    {% endif %}
                 </div>
             </div>
 

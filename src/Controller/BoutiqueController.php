@@ -33,7 +33,7 @@ final class BoutiqueController extends AbstractController
     }
 
     #[Route('/boutique/rayon/{idCategorie}', name: 'app_boutique_rayon', requirements: ['idCategorie' => '\d+'])]
-    public function rayon(int $idCategorie, CategorieRepository $categorieRepository): Response
+    public function rayon(int $idCategorie, CategorieRepository $categorieRepository,ProduitRepository $produitRepository): Response
     {
         $categorie = $categorieRepository->find($idCategorie);
 
@@ -42,7 +42,7 @@ final class BoutiqueController extends AbstractController
         }
 
         return $this->render('boutique/rayon.html.twig', [
-            "Produits"  => $categorie->getProduits(),
+            "Produits"  => $produitRepository->findBy(['categorie' => $idCategorie]),
             "categorie" => $categorie,
         ]);
     }

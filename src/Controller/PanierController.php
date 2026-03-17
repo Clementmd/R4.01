@@ -55,17 +55,16 @@ class PanierController extends AbstractController
 
 
     #[Route('/commander', name: 'app_panier_commander')]
-    public function commander(PanierService $panierService, EntityManagerInterface $em, UsagerRepository $usagerRepo): Response {
-        $usager = $usagerRepo->find(1);
-        $commande = $panierService->panierToCommande($usager);
-
-        if ($commande) {
-            return $this->render('panier/commande.html.twig', [
-                'commande' => $commande,
-                'usager' => $usager,
-            ]);
+    public function commander(PanierService $panierService, EntityManagerInterface $em): Response
+    {
+        $usager = $this->getUser();
+        if (!$usager) {
+            return $this->redirectToRoute('app_login');
         }
-
+        $commande = $panierService->panierToCommande($usager);
+        if ($commande) {
+            return $this->render('panier/commande.html.twig', ['commande' => $commande]);
+        }
         return $this->redirectToRoute('app_panier_index');
     }
 

@@ -56,23 +56,15 @@
 		</script>
 		{% block js %}
             <script>
-            document.addEventListener('DOMContentLoaded', function() {
-            const btn = document.getElementById('btn-recherche');
-            const input = document.getElementById('input-recherche');
+                document.getElementById('btn-recherche').addEventListener('click', function() {
+                    let recherche = document.getElementById('input-recherche').value;
 
-            if (btn && input) {
-                btn.addEventListener('click', function() {
-                const saisie = input.value;
-                const rechercheEncodee = encodeURIComponent(saisie);
-                const urlBase = "{{ path('app_boutique_chercher', {'_locale': app.request.locale, 'recherche': ''}) }}";
-                window.location.href = urlBase + rechercheEncodee;
-            });
+                    let locale = "{{ app.request.locale }}";
 
-            input.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {btn.click();}
-            });
-            }
-            });
+                    if (recherche.length > 0) {
+                        window.location.href = "/" + locale + "/chercher/" + recherche;
+                    }
+                });
             </script>
         {%  endblock %}
 	</body>

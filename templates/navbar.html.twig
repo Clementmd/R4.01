@@ -35,15 +35,39 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdownUsager" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-user"></i> Usager
+                    <i class="fas fa-user"></i>
+                    {{ app.user ? app.user.prenom : 'Usager' }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUsager">
-                    <a class="dropdown-item" href="{{ path('app_usager_new', {'_locale': app.request.locale}) }}">
-                        <i class="fas fa-user-plus"></i> Inscription
-                    </a>
-                    <a class="dropdown-item" href="{{ path('app_usager_index', {'_locale': app.request.locale}) }}">
-                        <i class="fas fa-id-card"></i> Accueil
-                    </a>
+
+                    {% if app.user %}
+                        <a class="dropdown-item disabled" href="#">Connexion</a>
+                        <a class="dropdown-item disabled" href="#">Inscription</a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item" href="{{ path('app_usager_index', {'_locale': app.request.locale}) }}">
+                            Mon Compte
+                        </a>
+
+                        <a class="dropdown-item" href="{{ path('app_panier_index', {'_locale': app.request.locale}) }}">
+                            Mes commandes
+                        </a>
+                        <a class="dropdown-item text-danger" href="{{ path('app_logout', {'_locale': app.request.locale}) }}">
+                            Déconnexion
+                        </a>
+
+                    {% else %}
+                        <a class="dropdown-item" href="{{ path('app_login', {'_locale': app.request.locale}) }}">Connexion</a>
+                        <a class="dropdown-item" href="{{ path('app_usager_new', {'_locale': app.request.locale}) }}">Inscription</a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item disabled" href="#">Mon Compte</a>
+                        <a class="dropdown-item disabled" href="#">Mes commandes</a>
+                        <a class="dropdown-item disabled" href="#">Déconnexion</a>
+                    {% endif %}
+
                 </div>
             </li>
         </ul>
