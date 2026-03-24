@@ -20,11 +20,8 @@
         <div class="card-body row">
             {% for uneCategorie in categories %}
                 <div class="col-md-3">
-                    {# On utilise le nom de la route défini dans le contrôleur #}
                     <div class="card clickable" onclick="location = '{{ path('app_boutique_rayon', {'idCategorie': uneCategorie.id}) }}'">
-                        {# Image dynamique #}
-                        <img src="/images/categories/{{ uneCategorie.visuel }}" class="card-img-top" alt="{{ uneCategorie.libelle }}">
-
+                        <img src="{{ asset(uneCategorie.visuel) }}" class="card-img-top" alt="{{ uneCategorie.libelle }}">
                         <div class="card-body">
                             <h4 class="card-title">{{ uneCategorie.libelle }}</h4>
                             <p class="card-text">

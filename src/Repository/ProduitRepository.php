@@ -51,9 +51,21 @@ class ProduitRepository extends ServiceEntityRepository
             return $qb->getQuery()->getResult();
         }
         $qb->where('p.libelle LIKE :recherche')
-            ->orWhere('p.text LIKE :recherche')
+            ->orWhere('p.texte LIKE :recherche')
             ->setParameter('recherche', '%' . $recherche . '%');
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function findTopVendus($limit = 3)
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.ligneCommandes', 'lc') // Adapte le nom de l'association
+            ->select('p as produit, SUM(lc.quantite) as total')
+            ->groupBy('p.id')
+            ->orderBy('total', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
     }
 }

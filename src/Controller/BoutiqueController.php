@@ -19,9 +19,7 @@ final class BoutiqueController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/chercher/{recherche}', name: 'app_boutique_chercher',
-        requirements: ['recherche' => '.+'],
-        defaults: ['recherche' => ''])]
+    #[Route(path: '/chercher/{recherche}', name: 'app_boutique_chercher', requirements: ['recherche' => '.+'], defaults: ['recherche' => ''])]
     public function chercher(ProduitRepository $produitRepository, string $recherche): Response
     {
         $produits = $produitRepository->findByLibelleOrTexte($recherche);
@@ -45,5 +43,10 @@ final class BoutiqueController extends AbstractController
             "Produits"  => $produitRepository->findBy(['categorie' => $idCategorie]),
             "categorie" => $categorie,
         ]);
+    }
+
+    public function topVentes(ProduitRepository $repo) {
+        $tops = $repo->findTopVendus(3);
+        return $this->render('boutique/top_ventes.html.twig', ['tops' => $tops]);
     }
 }

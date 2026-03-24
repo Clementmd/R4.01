@@ -1,6 +1,5 @@
 {# barre de navigation  #}
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    {# AJOUT de la locale pour le lien Home #}
     <a class="navbar-brand" href="{{ path("app_default_index", {'_locale': app.request.locale}) }}">
         <i class="fas fa-home"></i>
         {{ 'navbar.titre' | trans }}
@@ -74,8 +73,12 @@
 
         <div class="form-inline my-2 my-lg-0 mr-3">
             <input id="input-recherche" class="form-control mr-sm-2" type="text" placeholder="{{ 'navbar.recherche'|trans }}">
-            <button id="btn-recherche" class="btn btn-outline-success my-2 my-sm-0">
-                {{ 'navbar.chercher'|trans }}
+
+            <button class="btn btn-outline-success" type="button"
+                    onclick="onSearchClick(document.getElementById('input-recherche').value)"
+                    title="{{ 'navbar.rechercher'|trans }}"
+                    data-toggle="tooltip">
+                <i class="fas fa-search"></i>
             </button>
         </div>
             <li class="nav-item dropdown">

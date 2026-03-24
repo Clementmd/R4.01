@@ -24,19 +24,27 @@ class UsagerController extends AbstractController
     }
 
     #[Route('/new', name: 'app_usager_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response {
+    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    {
         $usager = new Usager();
         $form = $this->createForm(UsagerType::class, $usager);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $hashedPassword = $passwordHasher->hashPassword($usager, $usager->getPassword()
+            $hashedPassword = $passwordHasher->hashPassword(
+                $usager,
+                $usager->getPassword()
             );
             $usager->setPassword($hashedPassword);
-            $usager->setRoles(["ROLE_CLIENT"]);
+
+            $usager->setRoles(['ROLE_USER']);
+
             $entityManager->persist($usager);
             $entityManager->flush();
-            return $this->redirectToRoute('app_usager_index', [], Response::HTTP_SEE_OTHER);
+
+            $this->addFlash('success', 'Inscription réussie !');
+
+            return $this->redirectToRoute('app_boutique_index');
         }
 
         return $this->render('usager/new.html.twig', [

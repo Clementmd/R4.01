@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="card-header text-center">
+        <h5>
+            <i class="fas fa-star"></i>
+            Top Ventes
+            <i class="fas fa-star"></i>
+        </h5>
+    </div>
+    <div class="card-body text-muted text-center">
+        <ul class="list-group">
+            {% for item in listeTop %}
+
+                {% set p = item.produit %}
+
+                <a href="{{ path('app_boutique_rayon', {'idCategorie': p.categorie.id}) }}">
+                    <li class="list-group-item text-center clickable top-produit">
+
+                        <img src="{{ asset(p.visuel) }}" style="height: 40px;" alt="{{ p.libelle }}"/>
+
+                        <p class="top-produit">
+                            {{ p.libelle }}<br>
+                            <i>{{ item.totalVendu }} vente(s)</i>
+                        </p>
+                    </li>
+                </a>
+            {% else %}
+                <li class="list-group-item text-center">
+                    <p class="top-produit">Aucune vente pour le moment</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

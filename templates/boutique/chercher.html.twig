@@ -15,17 +15,24 @@
                 {% for produit in produits %}
                     <div class="col-md-4 mb-4">
                         <div class="card h-100">
-                            <img src="{{ asset('images/' ~ produit.visuel) }}" class="card-img-top" alt="{{ produit.libelle }}">
+                            <img src="{{ asset(produit.visuel) }}" class="card-img-top" alt="{{ produit.libelle }}">
 
                             <div class="card-body">
                                 <h5 class="card-title">{{ produit.libelle }}</h5>
                                 <p class="card-text">
-                                    {{ produit.texte|u.truncate(100, '...') }}
+                                    {{ produit.texte|slice(0,100) }}
                                 </p>
                             </div>
 
-                            <div class="card-footer">
-                                <span class="badge badge-primary">{{ produit.prix }} €</span>
+                            <div class="card-footer text-center">
+                                <a href="{{ path('app_panier_ajouter', {'idProduit': produit.id}) }}" style="text-decoration: none;">
+                                    <h3>
+                                        <span class="badge badge-primary">
+                                            <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;
+                                            {{ produit.prix|number_format(2, ',', ' ') }} €
+                                        </span>
+                                    </h3>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -41,7 +48,7 @@
 
         <div class="mt-4">
             <a href="{{ path('app_boutique_index', {'_locale': app.request.locale}) }}" class="btn btn-secondary">
-                {{ 'recherche.retour'|trans }}
+                <i class="fas fa-arrow-left"></i> {{ 'recherche.retour'|trans }}
             </a>
         </div>
     </div>

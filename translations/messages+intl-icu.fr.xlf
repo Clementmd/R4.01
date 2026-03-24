@@ -89,6 +89,32 @@
         <source>navbar.panier</source>
         <target>Mon Panier</target>
       </trans-unit>
+      <trans-unit id="nav_rechercher">
+        <source>navbar.rechercher</source>
+        <target>Lancer la recherche</target>
+      </trans-unit>
+      <trans-unit id="recherche_titre">
+        <source>recherche.titre</source>
+        <target>Résultats de la recherche</target>
+      </trans-unit>
+
+      <trans-unit id="recherche_resultats">
+        <source>recherche.resultats_pour</source>
+        <target>Résultats pour</target>
+      </trans-unit>
+
+      <trans-unit id="recherche_aucun">
+        <source>recherche.aucun_resultat</source>
+        <target>Désolé, aucun produit ne correspond à votre recherche.</target>
+      </trans-unit>
+
+      <trans-unit id="recherche_retour">
+        <source>recherche.retour</source>
+        <target>Retour à la boutique</target>
+      </trans-unit>
+      <trans-unit id="boutique_rayon_entete">
+        <source>boutique.rayon.entete</source>
+        <target>Rayon %libelle%</target> </trans-unit>
     </body>
   </file>
 </xliff>
