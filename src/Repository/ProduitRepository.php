@@ -57,11 +57,11 @@ class ProduitRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findTopVendus($limit = 3)
+    public function findTopVendus($limit = 5)
     {
         return $this->createQueryBuilder('p')
-            ->join('p.ligneCommandes', 'lc') // Adapte le nom de l'association
-            ->select('p as produit, SUM(lc.quantite) as total')
+            ->select('p as produit, SUM(lp.quantite) as total')
+            ->join('p.ligneProduits', 'lp')
             ->groupBy('p.id')
             ->orderBy('total', 'DESC')
             ->setMaxResults($limit)

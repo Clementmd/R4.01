@@ -1,6 +1,7 @@
 <?php
 namespace App\Service;
 
+use App\Entity\LigneCommande;
 use App\Entity\Commande;
 use App\Entity\Usager;
 use App\Repository\ProduitRepository;
@@ -99,9 +100,8 @@ class PanierService
 
         $commande = new Commande();
         $commande->setUsager($usager);
-        $commande->setDateCreation(new \DateTimeImmutable());
+        $commande->setDateCreation(new \DateTime());
         $commande->setValidation(false);
-
         foreach ($this->panier as $idProduit => $quantite) {
             $produit = $this->produitRepository->find($idProduit);
 

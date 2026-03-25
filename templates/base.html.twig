@@ -34,9 +34,13 @@
                 </div>
 
                 <div class="col-md-2 bg-light border-left" style="min-height: 90vh; padding-top: 20px;">
-                    <h5 class="text-center"><i class="fas fa-fire"></i> Top Ventes</h5>
+                    <h5 class="text-center">
+                        <aside>
+                            {{ render(controller('App\\Controller\\TopVentesController::topVentes')) }}
+                        </aside>
+                    </h5>
                     <hr>
-                </div>
+                 </div>
 
             </div>
         </main>

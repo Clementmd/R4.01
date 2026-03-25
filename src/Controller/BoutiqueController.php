@@ -45,8 +45,5 @@ final class BoutiqueController extends AbstractController
         ]);
     }
 
-    public function topVentes(ProduitRepository $repo) {
-        $tops = $repo->findTopVendus(3);
-        return $this->render('boutique/top_ventes.html.twig', ['tops' => $tops]);
-    }
+
 }
